@@ -35,9 +35,20 @@ def list_tasks():
         status = "✓" if task.get("done") else " "
         print(f"{i}. [{status}] {task['title']}")
 
+def mark_done(index):
+    """Отмечает задачу выполненной по номеру."""
+    tasks = load_tasks()
+    if 0 <= index < len(tasks):
+        tasks[index]["done"] = True
+        save_tasks(tasks)
+        print(f"Задача {index + 1} отмечена выполненной.")
+    else:
+        print("Неверный номер задачи.")
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "add":
         add_task(" ".join(sys.argv[2:]))
+    elif len(sys.argv) > 2 and sys.argv[1] == "done":
+        mark_done(int(sys.argv[2]) - 1)
     else:
         list_tasks()
