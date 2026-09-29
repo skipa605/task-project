@@ -25,15 +25,19 @@ def add_task(title):
     save_tasks(tasks)
     print(f"Задача добавлена: {title}")
 
-def list_tasks():
-    """Выводит все задачи."""
+def list_tasks(status=None):
+    """Выводит задачи, опционально фильтруя по статусу."""
     tasks = load_tasks()
+    if status == "done":
+        tasks = [t for t in tasks if t.get("done")]
+    elif status == "open":
+        tasks = [t for t in tasks if not t.get("done")]
     if not tasks:
-        print("Список задач пуст.")
+        print("Нет задач по фильтру.")
         return
     for i, task in enumerate(tasks, 1):
-        status = "✓" if task.get("done") else " "
-        print(f"{i}. [{status}] {task['title']}")
+        mark = "✓" if task.get("done") else " "
+        print(f"{i}. [{mark}] {task['title']}")
 
 def mark_done(index):
     """Отмечает задачу выполненной по номеру."""
@@ -50,5 +54,7 @@ if __name__ == "__main__":
         add_task(" ".join(sys.argv[2:]))
     elif len(sys.argv) > 2 and sys.argv[1] == "done":
         mark_done(int(sys.argv[2]) - 1)
+    elif len(sys.argv) > 2 and sys.argv[1] == "list":
+        list_tasks(sys.argv[2])
     else:
         list_tasks()
