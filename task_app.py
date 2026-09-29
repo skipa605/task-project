@@ -18,6 +18,12 @@ def save_tasks(tasks):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(tasks, f, ensure_ascii=False, indent=2)
 
+def add_task(title):
+    """Добавляет новую задачу."""
+    tasks = load_tasks()
+    tasks.append({"title": title, "done": False})
+    save_tasks(tasks)
+    print(f"Задача добавлена: {title}")
 
 def list_tasks():
     """Выводит все задачи."""
@@ -31,4 +37,7 @@ def list_tasks():
 
 
 if __name__ == "__main__":
-    list_tasks()
+    if len(sys.argv) > 1 and sys.argv[1] == "add":
+        add_task(" ".join(sys.argv[2:]))
+    else:
+        list_tasks()
