@@ -1,5 +1,6 @@
 import json
 import sys
+DEFAULT_PRIORITY = "normal"
 
 DATA_FILE = "tasks.json"
 
