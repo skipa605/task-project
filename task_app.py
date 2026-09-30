@@ -3,6 +3,7 @@ import sys
 
 DATA_FILE = "tasks.json"
 
+PRIORITY_ORDER = {"high": 0, "normal": 1, "low": 2}
 
 def load_tasks():
     """Загружает список задач из файла."""
