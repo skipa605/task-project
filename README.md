@@ -18,3 +18,11 @@ python task_app.py
 - python task_app.py done N — отметить задачу N выполненной
 - python task_app.py list open — показать открытые
 - python task_app.py list done — показать выполненные
+
+## Приоритеты
+
+- high — высокий
+- normal — обычный (по умолчанию)
+- low — низкий
+
+Задачи сортируются: high → normal → low.
