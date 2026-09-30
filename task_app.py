@@ -26,8 +26,7 @@ def add_task(title):
     print(f"Задача добавлена: {title}")
 
 def list_tasks(status=None):
-    """Выводит задачи, опционально фильтруя по статусу."""
-    tasks = load_tasks()
+    tasks = sort_by_priority(load_tasks())
     if status == "done":
         tasks = [t for t in tasks if t.get("done")]
     elif status == "open":
@@ -37,8 +36,12 @@ def list_tasks(status=None):
         return
     for i, task in enumerate(tasks, 1):
         mark = "✓" if task.get("done") else " "
-        print(f"{i}. [{mark}] {task['title']}")
+        print(f"{i}. [{mark}] {task['title']} ({task.get('priority', 'normal')})")
 
+
+def sort_by_priority(tasks):
+    """Сортирует задачи по приоритету."""
+    return sorted(tasks, key=lambda t: PRIORITY_ORDER.get(t.get("priority", "normal"), 1))
 def mark_done(index):
     """Отмечает задачу выполненной по номеру."""
     tasks = load_tasks()
