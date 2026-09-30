@@ -1,6 +1,6 @@
 import json
 import sys
-
+DEFAULT_PRIORITY = "high"
 DATA_FILE = "tasks.json"
 
 PRIORITY_ORDER = {"high": 0, "normal": 1, "low": 2}
